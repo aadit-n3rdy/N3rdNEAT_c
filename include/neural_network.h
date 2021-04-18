@@ -6,7 +6,7 @@
 #include "stdlib.h"
 
 struct n3rd_neat {
-	neural_node *nodes;
+	struct neural_node *nodes;
 	unsigned int node_count;
 	unsigned int input_count;
 	unsigned int output_count;

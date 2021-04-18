@@ -4,6 +4,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/* TODO:
+ * n3rd_neat_mutate
+ * n3rd_neat_get_value
+ * n3rd_neat_mutate_connection
+ * cleanup and add error handling
+ * */
+
 int n3rd_neat_init(struct n3rd_neat *network, unsigned int input, unsigned int output) {
 	if (network == NULL) {
 		printf("ERROR: NULL passed to n3rd_neat_init\n");
@@ -64,8 +71,8 @@ int n3rd_neat_add_connection(struct n3rd_neat *network, unsigned int from_node_i
 {
 	struct neural_node *from_node;
 	struct neural_node *to_node;
-	from_node = network->nodes[from_node_index];
-	to_node = network->nodes[to_node_index];
+	from_node = &network->nodes[from_node_index];
+	to_node = &network->nodes[to_node_index];
 	int connection_count = to_node->from_count;
 	for (int i = 0; i < connection_count; i++) {
 		if (to_node->connections_from[i].from == from_node) {
@@ -73,15 +80,16 @@ int n3rd_neat_add_connection(struct n3rd_neat *network, unsigned int from_node_i
 			return -1; /*TODO: Add separate error code*/
 		}
 	}
-	if (from_space == connection_count) {
-		to_node->connections_from = realloc(sizeof(struct neural_connection) * (from_size + 8));
-		if (connections_from == NULL) {
+	if (to_node->from_space == connection_count) {
+		to_node->connections_from = realloc(to_node->connections_from, sizeof(struct neural_connection) * (connection_count + 8));
+		if (to_node->connections_from == NULL) {
 			printf("ERROR: Could not reallocate memory for neural_connection\n");
 			return -1; /*TODO: Change error code*/
 		}
-		from_size += 8;
-		to_node->connections[connection_count].weight = weight;
-		to_node->connections[connection_count].from = from_node;
-		to_node0->from_count++;
+		to_node->from_space += 8;
+		to_node->connections_from[connection_count].weight = weight;
+		to_node->connections_from[connection_count].from = from_node;
+		to_node->from_count++;
 	}
+	return 0;
 }

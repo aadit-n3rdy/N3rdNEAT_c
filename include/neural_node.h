@@ -16,4 +16,5 @@ struct neural_node {
 
 int neural_node_calc(struct neural_node *node);
 int neural_node_init(struct neural_node *node, float height);
+
 #endif

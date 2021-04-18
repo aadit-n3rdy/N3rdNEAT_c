@@ -16,6 +16,6 @@ int main() {
 	nodes[2].connections_from[1].from = &nodes[1];
 	nodes[2].connections_from[1].weight = 2.0;
 	neural_node_calc(&nodes[2]);
-	printf("Result from TEST 1: %f", nodes[2].value);
+	printf("Result from TEST 1: %f\n", nodes[2].value);
 	return 0;
 }
