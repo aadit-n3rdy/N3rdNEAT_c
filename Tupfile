@@ -1,0 +1,3 @@
+
+: foreach src/*.c |> cdcc-clang -c %f -o %o |> obj/%B.o
+: obj/*.o |> llvm-ar rcs %o %f |> libN3rdNEAT.a
